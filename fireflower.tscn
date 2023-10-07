@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddlwb0ohrkicp"]
+
+[ext_resource type="Script" path="res://Fireflower.gd" id="1_qewr5"]
+[ext_resource type="Script" path="res://Pickup.gd" id="2_0olmy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8pq4h"]
+
+[node name="Fireflower" type="Node2D"]
+script = ExtResource("1_qewr5")
+
+[node name="Pickup" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_0olmy")
+
+[node name="pickup_area" type="Area2D" parent="Pickup"]
+unique_name_in_owner = true
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup/pickup_area"]
+shape = SubResource("RectangleShape2D_8pq4h")

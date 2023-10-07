@@ -1,7 +1,66 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg6xe61fchfki"]
+[gd_scene load_steps=10 format=3 uid="uid://cg6xe61fchfki"]
 
 [ext_resource type="PackedScene" uid="uid://bg0xcynlmefh1" path="res://player.tscn" id="1_35kbv"]
+[ext_resource type="Texture2D" uid="uid://d2fohxfx301n" path="res://assets/background.png" id="2_g6ubk"]
+[ext_resource type="Texture2D" uid="uid://dcatsrhupeu1t" path="res://assets/ground.png" id="3_3u3m2"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="4_ok5km"]
+[ext_resource type="PackedScene" uid="uid://bjan7buwecohf" path="res://mushroom.tscn" id="5_3bp7p"]
+[ext_resource type="PackedScene" uid="uid://ddlwb0ohrkicp" path="res://fireflower.tscn" id="6_ftxje"]
+[ext_resource type="PackedScene" uid="uid://dafpx601bd4uj" path="res://star.tscn" id="7_tf01b"]
+[ext_resource type="PackedScene" uid="uid://o5qc0ugcpnuq" path="res://brick.tscn" id="8_v8w2p"]
+[ext_resource type="PackedScene" uid="uid://dyqhqmuos10h8" path="res://item_block.tscn" id="9_ls32e"]
 
 [node name="World" type="Node2D"]
 
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(128, 122)
+texture = ExtResource("2_g6ubk")
+
+[node name="Background2" type="Sprite2D" parent="."]
+position = Vector2(384, 122)
+texture = ExtResource("2_g6ubk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Ground" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(128, 122)
+texture = ExtResource("3_3u3m2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(128, 122)
+polygon = PackedVector2Array(128, 120, -128, 120, -128, 96, 128, 96)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(256, 2.08165e-12)
+
+[node name="Ground" type="Sprite2D" parent="StaticBody2D2"]
+position = Vector2(128, 122)
+texture = ExtResource("3_3u3m2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
+position = Vector2(128, 122)
+polygon = PackedVector2Array(128, 120, -128, 120, -128, 96, 128, 96)
+
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_35kbv")]
+position = Vector2(100, 191)
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("node_to_follow")]
+position = Vector2(128, 120)
+script = ExtResource("4_ok5km")
+node_to_follow = NodePath("../CharacterBody2D")
+
+[node name="Mushroom" parent="." instance=ExtResource("5_3bp7p")]
+position = Vector2(135, 204)
+
+[node name="Fireflower" parent="." instance=ExtResource("6_ftxje")]
+position = Vector2(188, 203)
+
+[node name="Star" parent="." instance=ExtResource("7_tf01b")]
+position = Vector2(240, 203)
+
+[node name="Brick" parent="." instance=ExtResource("8_v8w2p")]
+position = Vector2(100, 165)
+
+[node name="ItemBlock" parent="." instance=ExtResource("9_ls32e")]
+position = Vector2(45, 165)
+item_pickup = ExtResource("5_3bp7p")

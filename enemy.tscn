@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b718j5ccyoo7r"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_hqgnj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46g4d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6wsv"]
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_hqgnj")
+
+[node name="mock_animation_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.75
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_46g4d")
+
+[node name="hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("RectangleShape2D_k6wsv")

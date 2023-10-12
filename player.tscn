@@ -1,13 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bg0xcynlmefh1"]
+[gd_scene load_steps=7 format=3 uid="uid://bg0xcynlmefh1"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_demhi"]
 [ext_resource type="Texture2D" uid="uid://dlcvrco3j5nth" path="res://assets/player.png" id="2_ofx7q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cxl4y"]
-size = Vector2(12, 26)
+size = Vector2(10, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dq06v"]
 size = Vector2(12, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tivu7"]
+size = Vector2(12, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rp61"]
+size = Vector2(6, 1)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -28,7 +34,31 @@ metadata/_edit_lock_ = true
 [node name="star_timer" type="Timer" parent="."]
 
 [node name="head" type="Area2D" parent="."]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="head"]
 position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_dq06v")
+
+[node name="hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 4
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("RectangleShape2D_tivu7")
+metadata/_edit_lock_ = true
+
+[node name="hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 13)
+collision_layer = 2
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_5rp61")

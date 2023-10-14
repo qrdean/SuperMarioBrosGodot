@@ -12,6 +12,7 @@ func _ready():
 func _process(_delta):
 	pass
 
+## callback for when the area2D is entered by a body
 func _on_pickup(body: Node2D, type: String):
 	if body is Player:
 		body.item_pickup(type)

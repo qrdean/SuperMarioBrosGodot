@@ -9,7 +9,6 @@ var killed = false
 @onready var hurtbox: Area2D = %hurtbox
 @onready var mock_animation_timer: Timer = %mock_animation_timer
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
@@ -17,9 +16,6 @@ func _ready():
 	hurtbox.area_entered.connect(_on_hurtbox_entered)
 
 func _physics_process(delta):
-	# TODO: Remove this is for debug
-	direction = 0.0
-	# Add the gravity.
 	if killed:
 		direction = 0.0
 
@@ -33,6 +29,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 
+## when the player runs into the enemy trigger this
 func _on_hurtbox_entered(area: Node2D):
 	if area.get_parent() != null:
 		if area.get_parent() is Player:
@@ -51,5 +48,6 @@ func run_damage(stomp: bool):
 		print_debug("play other animation")
 	mock_animation_timer.start()
 
+# TODO: replace me once animations are in place
 func _run_mock_animation_timer():
 	self.queue_free()

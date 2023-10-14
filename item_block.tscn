@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyqhqmuos10h8"]
+[gd_scene load_steps=4 format=3 uid="uid://dyqhqmuos10h8"]
 
 [ext_resource type="Script" path="res://item_block.gd" id="1_8b08n"]
+[ext_resource type="Texture2D" uid="uid://07oggifo7yeu" path="res://assets/tilemap-Sheet.png" id="2_4cycd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkv0f"]
+size = Vector2(12, 12)
 
 [node name="ItemBlock" type="AnimatableBody2D"]
 script = ExtResource("1_8b08n")
+
+[node name="Tilemap-sheet" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_4cycd")
+region_enabled = true
+region_rect = Rect2(48, 0, 12, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vkv0f")

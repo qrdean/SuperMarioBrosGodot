@@ -1,15 +1,61 @@
-[gd_scene load_steps=4 format=3 uid="uid://b718j5ccyoo7r"]
+[gd_scene load_steps=9 format=3 uid="uid://b718j5ccyoo7r"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_hqgnj"]
+[ext_resource type="Texture2D" uid="uid://cyxcbiqd3xm0" path="res://assets/goomba-Sheet.png" id="2_blkc8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw26y"]
+atlas = ExtResource("2_blkc8")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uaocc"]
+atlas = ExtResource("2_blkc8")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sohg"]
+atlas = ExtResource("2_blkc8")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i6wfq"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_yw26y")
+}],
+"loop": false,
+"name": &"goomba_dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uaocc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sohg")
+}],
+"loop": true,
+"name": &"goomba_walk",
+"speed": 3.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46g4d"]
+size = Vector2(12, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k6wsv"]
+size = Vector2(12, 12)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_hqgnj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_i6wfq")
 
 [node name="mock_animation_timer" type="Timer" parent="."]
 unique_name_in_owner = true

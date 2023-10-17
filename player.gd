@@ -16,16 +16,18 @@ enum MarioState {
 	STARPOWER
 }
 
-@onready var star_timer = $star_timer
-@onready var head_area = %head
-@onready var hurtbox_area = %hurtbox
-@onready var hitbox_area = %hitbox
+@onready var star_timer: 	 Timer = $star_timer
+@onready var head_area: 	 Area2D = %head
+@onready var hurtbox_area: Area2D = %hurtbox
+@onready var hitbox_area:  Area2D = %hitbox
+@onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	starting_pos = global_position
+	animation_player.play("normal_idle")
 
 	star_timer.wait_time = 7.0
 	star_timer.one_shot = true
@@ -91,6 +93,7 @@ func damage_player(enemy: Node2D):
 		print_debug("player killed")
 	elif state == MarioState.SUPER:
 		state = MarioState.NORMAL
+		animation_player.play("normal_idle")
 		print_debug(state)
 	elif state == MarioState.FIREFLOWER:
 		state = MarioState.SUPER
@@ -127,6 +130,7 @@ func handle_mushroom():
 	if(state == MarioState.NORMAL):
 		# make super mario
 		state = MarioState.SUPER
+		animation_player.play("super_idle")
 	else:
 		# extra life
 		print_debug("give 1 up")

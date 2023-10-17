@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cg6xe61fchfki"]
+[gd_scene load_steps=17 format=3 uid="uid://cg6xe61fchfki"]
 
 [ext_resource type="PackedScene" uid="uid://bg0xcynlmefh1" path="res://player.tscn" id="1_35kbv"]
 [ext_resource type="Texture2D" uid="uid://d2fohxfx301n" path="res://assets/background.png" id="2_g6ubk"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ddlwb0ohrkicp" path="res://fireflower.tscn" id="11_knu01"]
 [ext_resource type="PackedScene" uid="uid://bjan7buwecohf" path="res://mushroom.tscn" id="11_sfovo"]
 [ext_resource type="PackedScene" uid="uid://dafpx601bd4uj" path="res://star.tscn" id="12_kdbgy"]
+[ext_resource type="PackedScene" uid="uid://b718j5ccyoo7r" path="res://enemy.tscn" id="13_g03cp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iqr54"]
 size = Vector2(2627, 20)
@@ -298,3 +299,15 @@ position = Vector2(1602, 126)
 
 [node name="ItemBlock12" parent="." instance=ExtResource("10_vgi8j")]
 position = Vector2(2094, 174)
+
+[node name="Enemy" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(306, 209)
+enemy_type = "goomba"
+
+[node name="Enemy2" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(414, 209)
+enemy_type = "goomba"
+
+[node name="Enemy3" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(462, 209)
+enemy_type = "goomba"

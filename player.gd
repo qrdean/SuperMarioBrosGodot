@@ -60,6 +60,15 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+	if velocity.x > 0:
+		animation_player.play("normal_run")
+		animation_player.flip_h = false
+	elif velocity.x < 0:
+		animation_player.play("normal_run")
+		animation_player.flip_h = true
+	else:
+		animation_player.play("normal_idle")
+
 	move_and_slide()
 
 ### Mario signal callbacks ###

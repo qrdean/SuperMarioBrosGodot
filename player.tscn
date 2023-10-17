@@ -1,12 +1,29 @@
-[gd_scene load_steps=11 format=3 uid="uid://bg0xcynlmefh1"]
+[gd_scene load_steps=16 format=3 uid="uid://bg0xcynlmefh1"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_demhi"]
 [ext_resource type="Texture2D" uid="uid://dlcvrco3j5nth" path="res://assets/player.png" id="2_ofx7q"]
 [ext_resource type="Texture2D" uid="uid://cptuq1pgxicj4" path="res://assets/s_player.png" id="3_0xb0t"]
+[ext_resource type="Texture2D" uid="uid://bue6mk1nplo1o" path="res://assets/s_player-run.png" id="3_uhhr6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mulp1"]
 atlas = ExtResource("3_0xb0t")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icwaa"]
+atlas = ExtResource("3_uhhr6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_630fn"]
+atlas = ExtResource("3_uhhr6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25b83"]
+atlas = ExtResource("3_uhhr6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1jyc"]
+atlas = ExtResource("3_uhhr6")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3250"]
 atlas = ExtResource("2_ofx7q")
@@ -26,6 +43,23 @@ animations = [{
 "loop": true,
 "name": &"normal_idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icwaa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_630fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25b83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1jyc")
+}],
+"loop": true,
+"name": &"normal_run",
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -56,7 +90,9 @@ script = ExtResource("1_demhi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4s05w")
-animation = &"normal_idle"
+animation = &"normal_run"
+frame = 3
+frame_progress = 0.0605717
 
 [node name="Player" type="Sprite2D" parent="."]
 visible = false

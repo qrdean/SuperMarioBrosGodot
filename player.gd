@@ -3,7 +3,13 @@ class_name Player
 
 const SPEED = 200.0
 const JUMP_VELOCITY = -350.0
-var state = MarioState.NORMAL
+var state = MarioState.NORMAL : set = _set_state
+
+func _set_state(new_state):
+	state = new_state
+	current_animation_dictionary = get_animation_dictionary()
+	handle_collision_change()
+
 var prev_state = MarioState.NORMAL
 
 # TODO: should remove this
@@ -20,23 +26,42 @@ enum MarioState {
 @onready var head_area: 	 Area2D = %head
 @onready var hurtbox_area: Area2D = %hurtbox
 @onready var hitbox_area:  Area2D = %hitbox
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var small_head_area: 	 Area2D = %small_head
+@onready var small_hurtbox_area: Area2D = %small_hurtbox
+@onready var small_hitbox_area:  Area2D = %small_hitbox
+@onready var small_collision_shape: CollisionShape2D = %small_collision_shape
 @onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+var current_animation_dictionary: Dictionary = {}
+
+var dictionary_of_normal_animations: Dictionary = {"idle": "normal_idle", "run": "normal_run", "jump": "normal_jump"}
+var dictionary_of_super_animations: Dictionary = {"idle": "super_idle", "run": "super_run", "jump": "super_jump"}
+# var dictionary_of_fireflower_animations: Dictionary = {"idle": "normal_idle", "run": "normal_run", "jump": "normal_jump"}
+# var dictionary_of_star_animations: Dictionary = {"idle": "normal_idle", "run": "normal_run", "jump": "normal_jump"}
+
 func _ready():
 	starting_pos = global_position
-	animation_player.play("normal_idle")
+	current_animation_dictionary = get_animation_dictionary()
+	animation_player.play(current_animation_dictionary.get("idle"))
 
 	star_timer.wait_time = 7.0
 	star_timer.one_shot = true
 	star_timer.timeout.connect(_on_star_timeout)
 
+	collision_shape.disabled = true
+	head_area.monitoring = false
 	head_area.body_entered.connect(_on_head_body_entered)
+	small_head_area.body_entered.connect(_on_head_body_entered)
 
 	hitbox_area.monitoring = false
 	hitbox_area.area_entered.connect(_on_hitbox_area_entered)
+	small_hitbox_area.monitoring = false
+	small_hitbox_area.area_entered.connect(_on_hitbox_area_entered)
+	handle_collision_change()
 
 func _physics_process(delta):
 	for i in get_slide_collision_count():
@@ -61,15 +86,45 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	if velocity.x > 0:
-		animation_player.play("normal_run")
+		animation_player.play(current_animation_dictionary.get("run"))
 		animation_player.flip_h = false
 	elif velocity.x < 0:
-		animation_player.play("normal_run")
+		animation_player.play(current_animation_dictionary.get("run"))
 		animation_player.flip_h = true
 	else:
-		animation_player.play("normal_idle")
+		animation_player.play(current_animation_dictionary.get("idle"))
 
 	move_and_slide()
+
+### Mario State Handling ###
+func get_animation_dictionary():
+	match state:
+		MarioState.NORMAL:
+			return dictionary_of_normal_animations 
+		MarioState.SUPER:
+			return dictionary_of_super_animations
+	# This will be fixed later
+	return dictionary_of_super_animations	
+
+func handle_collision_change():
+	match state:
+		MarioState.NORMAL:
+			small_collision_shape.call_deferred("set_disabled", false)
+			small_head_area.monitoring = true
+			small_hurtbox_area.monitoring = true
+			head_area.monitoring = false
+			hurtbox_area.monitoring = false
+			$CollisionShape2D.call_deferred("set_disabled", true)
+			return
+
+	# small_collision_shape.disabled 	= true
+	small_collision_shape.call_deferred("set_disabled", true)
+	small_head_area.monitoring 			= false
+	small_hurtbox_area.monitoring 	= false
+	head_area.monitoring 						= true
+	hurtbox_area.monitoring 				= true
+	$CollisionShape2D.call_deferred("set_disabled", false)
+
 
 ### Mario signal callbacks ###
 
@@ -102,7 +157,7 @@ func damage_player(enemy: Node2D):
 		print_debug("player killed")
 	elif state == MarioState.SUPER:
 		state = MarioState.NORMAL
-		animation_player.play("normal_idle")
+		animation_player.play(current_animation_dictionary.get("idle"))
 		print_debug(state)
 	elif state == MarioState.FIREFLOWER:
 		state = MarioState.SUPER
@@ -139,7 +194,7 @@ func handle_mushroom():
 	if(state == MarioState.NORMAL):
 		# make super mario
 		state = MarioState.SUPER
-		animation_player.play("super_idle")
+		animation_player.play(current_animation_dictionary.get('idle'))
 	else:
 		# extra life
 		print_debug("give 1 up")

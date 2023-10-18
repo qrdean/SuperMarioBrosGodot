@@ -22,6 +22,8 @@ enum MarioState {
 	STARPOWER
 }
 
+var jumping = false
+
 @onready var star_timer: 	 Timer = $star_timer
 @onready var head_area: 	 Area2D = %head
 @onready var hurtbox_area: Area2D = %hurtbox
@@ -73,11 +75,17 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		hitbox_area.monitoring = true
+		jumping = true
 	elif hitbox_area.monitoring:
+		jumping = false
 		hitbox_area.monitoring = false
+
+	if jumping:
+		animation_player.play(current_animation_dictionary.get("jump"))
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	
 
 	var direction = Input.get_axis("left", "right")
 	if direction:
@@ -85,13 +93,13 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	if velocity.x > 0:
+	if velocity.x > 0 && !jumping:
 		animation_player.play(current_animation_dictionary.get("run"))
 		animation_player.flip_h = false
-	elif velocity.x < 0:
+	elif velocity.x < 0 && !jumping:
 		animation_player.play(current_animation_dictionary.get("run"))
 		animation_player.flip_h = true
-	else:
+	elif !jumping:
 		animation_player.play(current_animation_dictionary.get("idle"))
 
 	move_and_slide()

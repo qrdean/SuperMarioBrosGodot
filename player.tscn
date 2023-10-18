@@ -1,17 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://bg0xcynlmefh1"]
+[gd_scene load_steps=26 format=3 uid="uid://bg0xcynlmefh1"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_demhi"]
 [ext_resource type="Texture2D" uid="uid://dlcvrco3j5nth" path="res://assets/player.png" id="2_ofx7q"]
 [ext_resource type="Texture2D" uid="uid://cptuq1pgxicj4" path="res://assets/s_player.png" id="3_0xb0t"]
 [ext_resource type="Texture2D" uid="uid://bue6mk1nplo1o" path="res://assets/s_player-run.png" id="3_uhhr6"]
+[ext_resource type="Texture2D" uid="uid://cjjoqba4n3i3t" path="res://assets/s_player-Sheet.png" id="3_xckid"]
+[ext_resource type="Texture2D" uid="uid://dqgqq8ad3fo35" path="res://assets/player-Sheet.png" id="6_i7jrp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mulp1"]
 atlas = ExtResource("3_0xb0t")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_icwaa"]
-atlas = ExtResource("3_uhhr6")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i3gn"]
+atlas = ExtResource("3_xckid")
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_630fn"]
 atlas = ExtResource("3_uhhr6")
@@ -29,9 +31,21 @@ region = Rect2(48, 0, 16, 16)
 atlas = ExtResource("2_ofx7q")
 region = Rect2(0, 0, 16, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_blgk6"]
-atlas = ExtResource("2_ofx7q")
-region = Rect2(0, 0, 16, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqqgi"]
+atlas = ExtResource("6_i7jrp")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sht0s"]
+atlas = ExtResource("6_i7jrp")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_el242"]
+atlas = ExtResource("6_i7jrp")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naiub"]
+atlas = ExtResource("6_i7jrp")
+region = Rect2(48, 0, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4s05w"]
 animations = [{
@@ -48,15 +62,15 @@ animations = [{
 "name": &"normal_idle",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4i3gn")
+}],
 "loop": true,
 "name": &"normal_jump",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_icwaa")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_630fn")
 }, {
@@ -68,7 +82,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"normal_run",
-"speed": 20.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -76,20 +90,29 @@ animations = [{
 }],
 "loop": true,
 "name": &"super_idle",
-"speed": 5.0
+"speed": 15.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqqgi")
+}],
 "loop": true,
 "name": &"super_jump",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_blgk6")
+"texture": SubResource("AtlasTexture_sht0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_el242")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naiub")
 }],
 "loop": true,
 "name": &"super_run",
-"speed": 5.0
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cxl4y"]
@@ -124,7 +147,8 @@ script = ExtResource("1_demhi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4s05w")
-animation = &"super_run"
+animation = &"normal_idle"
+frame_progress = 0.325021
 
 [node name="Player" type="Sprite2D" parent="."]
 visible = false
@@ -134,13 +158,13 @@ texture = ExtResource("2_ofx7q")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.25, 0)
 shape = SubResource("RectangleShape2D_cxl4y")
 metadata/_edit_lock_ = true
 
 [node name="small_collision_shape" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-visible = false
 shape = SubResource("RectangleShape2D_c06jn")
 metadata/_edit_lock_ = true
 
@@ -148,12 +172,11 @@ metadata/_edit_lock_ = true
 
 [node name="head" type="Area2D" parent="."]
 unique_name_in_owner = true
-metadata/_edit_lock_ = true
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="head"]
-position = Vector2(0, -18)
+position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_dq06v")
-metadata/_edit_lock_ = true
 
 [node name="hurtbox" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -183,11 +206,9 @@ metadata/_edit_lock_ = true
 
 [node name="small_head" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="small_head"]
-visible = false
 position = Vector2(0, -8.25)
 shape = SubResource("RectangleShape2D_di1yr")
 metadata/_edit_lock_ = true

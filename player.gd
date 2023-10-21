@@ -35,6 +35,8 @@ var jumping = false
 @onready var small_collision_shape: CollisionShape2D = %small_collision_shape
 @onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
+@onready var fireball_scene: PackedScene
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -230,4 +232,11 @@ func _on_star_timeout():
 	print_debug("star timed out")
 	self.state = prev_state
 	print_debug(state)
+
+func _launch_fireball():
+	var fireball = fireball_scene.instantiate()
+	fireball.global_position = get_global_position()
+	# newBullet.rotation_degrees = self.rotation_degrees
+	add_sibling(fireball)
+
 

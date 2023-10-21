@@ -148,7 +148,7 @@ script = ExtResource("1_demhi")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4s05w")
 animation = &"normal_idle"
-frame_progress = 0.325021
+frame_progress = 0.470471
 
 [node name="Player" type="Sprite2D" parent="."]
 visible = false

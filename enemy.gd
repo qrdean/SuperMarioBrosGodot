@@ -63,6 +63,7 @@ func run_damage(stomp: bool):
 	if stomp:
 		animation_sprite.play("goomba_dead")
 	else:
+		animation_sprite.play("goomba_dead")
 		print_debug("play other animation")
 	# mock_animation_timer.start()
 

@@ -7,12 +7,12 @@ class_name Fireball
 @onready var fireball_hitbox: Area2D = %hitbox
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 
-## need to set x direction based on player facing 
 var direction: Vector2 = Vector2(1.0, 1.0) 
 var initial_x_direction: float
 
 func _ready():
-	initial_x_direction = direction.x
+	if initial_x_direction:
+		direction.x = initial_x_direction
 	fireball_hitbox.body_entered.connect(_fireball_area_body_entered)
 	animation.play("fireball")
 
@@ -29,4 +29,3 @@ func _fireball_area_body_entered(body):
 	if body is Enemy:
 		body.run_damage(false)
 		self.queue_free()
-	print_debug(body)

@@ -10,13 +10,11 @@ var killed = false
 
 @onready var hurtbox: Area2D = %hurtbox
 @onready var animation_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var mock_animation_timer: Timer = %mock_animation_timer
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	animation_sprite.animation_finished.connect(_run_animation_finished)
-	# mock_animation_timer.timeout.connect(_run_mock_animation_timer)
 	hurtbox.area_entered.connect(_on_hurtbox_entered)
 	# TODO: would want to make an initialization layer to handle different enemies
 	# But for this small project is simple
@@ -58,18 +56,15 @@ func _on_hurtbox_entered(area: Node2D):
 ## There is different Animations between these two. Could set a flag or something for
 ## One function that gets passed in. Instead of this
 func run_damage(stomp: bool):
-	hurtbox.monitoring = false
+	# hurtbox.monitoring = false
+	hurtbox.call_deferred("set_monitoring", false)
 	killed = true
 	if stomp:
 		animation_sprite.play("goomba_dead")
 	else:
+		animation_sprite.flip_v = true
 		animation_sprite.play("goomba_dead")
 		print_debug("play other animation")
-	# mock_animation_timer.start()
-
-# TODO: replace me once animations are in place
-func _run_mock_animation_timer():
-	self.queue_free()
 
 func _run_animation_finished():
 	if animation_sprite.animation == "goomba_dead":

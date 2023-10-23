@@ -1,11 +1,37 @@
-[gd_scene load_steps=26 format=3 uid="uid://bg0xcynlmefh1"]
+[gd_scene load_steps=34 format=3 uid="uid://bg0xcynlmefh1"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_demhi"]
+[ext_resource type="PackedScene" uid="uid://dfawg1m3e80o8" path="res://fireball.tscn" id="2_gfuxg"]
 [ext_resource type="Texture2D" uid="uid://dlcvrco3j5nth" path="res://assets/player.png" id="2_ofx7q"]
 [ext_resource type="Texture2D" uid="uid://cptuq1pgxicj4" path="res://assets/s_player.png" id="3_0xb0t"]
+[ext_resource type="Texture2D" uid="uid://de6wcubnipfhj" path="res://assets/mario-full.png" id="3_sta78"]
 [ext_resource type="Texture2D" uid="uid://bue6mk1nplo1o" path="res://assets/s_player-run.png" id="3_uhhr6"]
 [ext_resource type="Texture2D" uid="uid://cjjoqba4n3i3t" path="res://assets/s_player-Sheet.png" id="3_xckid"]
 [ext_resource type="Texture2D" uid="uid://dqgqq8ad3fo35" path="res://assets/player-Sheet.png" id="6_i7jrp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uqt4"]
+atlas = ExtResource("3_xckid")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dfop"]
+atlas = ExtResource("3_sta78")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cfos"]
+atlas = ExtResource("3_sta78")
+region = Rect2(64, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_756tg"]
+atlas = ExtResource("3_sta78")
+region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou0rp"]
+atlas = ExtResource("3_sta78")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7juew"]
+atlas = ExtResource("3_sta78")
+region = Rect2(48, 32, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mulp1"]
 atlas = ExtResource("3_0xb0t")
@@ -27,8 +53,8 @@ region = Rect2(32, 0, 16, 16)
 atlas = ExtResource("3_uhhr6")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d3250"]
-atlas = ExtResource("2_ofx7q")
+[sub_resource type="AtlasTexture" id="AtlasTexture_2u5gl"]
+atlas = ExtResource("3_sta78")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rqqgi"]
@@ -49,10 +75,48 @@ region = Rect2(48, 0, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4s05w"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uqt4")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [],
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dfop")
+}],
+"loop": true,
+"name": &"fire_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cfos")
+}],
+"loop": true,
+"name": &"fire_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_756tg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ou0rp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7juew")
+}],
+"loop": true,
+"name": &"fire_run",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -86,7 +150,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d3250")
+"texture": SubResource("AtlasTexture_2u5gl")
 }],
 "loop": true,
 "name": &"super_idle",
@@ -143,12 +207,12 @@ size = Vector2(12, 2)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_demhi")
+fireball_scene = ExtResource("2_gfuxg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4s05w")
-animation = &"normal_idle"
-frame_progress = 0.470471
+animation = &"death"
 
 [node name="Player" type="Sprite2D" parent="."]
 visible = false
@@ -172,7 +236,6 @@ metadata/_edit_lock_ = true
 
 [node name="head" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="head"]
 position = Vector2(0, -15)
@@ -180,7 +243,6 @@ shape = SubResource("RectangleShape2D_dq06v")
 
 [node name="hurtbox" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 collision_layer = 2
 collision_mask = 4
 metadata/_edit_lock_ = true
@@ -191,7 +253,6 @@ metadata/_edit_lock_ = true
 
 [node name="hitbox" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 position = Vector2(0, 13)
 collision_layer = 2
 collision_mask = 4
@@ -215,7 +276,6 @@ metadata/_edit_lock_ = true
 
 [node name="small_hurtbox" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="small_hurtbox"]
@@ -224,10 +284,11 @@ metadata/_edit_lock_ = true
 
 [node name="small_hitbox" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="small_hitbox"]
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_6u22r")
 metadata/_edit_lock_ = true
+
+[node name="invuln_timer" type="Timer" parent="."]

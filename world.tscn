@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cg6xe61fchfki"]
+[gd_scene load_steps=20 format=3 uid="uid://cg6xe61fchfki"]
 
 [ext_resource type="PackedScene" uid="uid://bg0xcynlmefh1" path="res://player.tscn" id="1_35kbv"]
 [ext_resource type="Texture2D" uid="uid://d2fohxfx301n" path="res://assets/background.png" id="2_g6ubk"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dafpx601bd4uj" path="res://star.tscn" id="12_kdbgy"]
 [ext_resource type="PackedScene" uid="uid://b718j5ccyoo7r" path="res://enemy.tscn" id="13_g03cp"]
 [ext_resource type="PackedScene" uid="uid://dfawg1m3e80o8" path="res://fireball.tscn" id="14_0rf2y"]
+[ext_resource type="Script" path="res://SecretTunnel.gd" id="15_o575v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iqr54"]
 size = Vector2(2627, 20)
@@ -82,6 +83,8 @@ texture_region_size = Vector2i(12, 12)
 tile_size = Vector2i(12, 12)
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_6c0fr")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0316g"]
 
 [node name="World" type="Node2D"]
 
@@ -303,7 +306,6 @@ position = Vector2(2094, 174)
 
 [node name="Enemy" parent="." instance=ExtResource("13_g03cp")]
 position = Vector2(306, 209)
-collision_layer = 0
 enemy_type = "goomba"
 
 [node name="Enemy2" parent="." instance=ExtResource("13_g03cp")]
@@ -316,3 +318,11 @@ enemy_type = "goomba"
 
 [node name="Fireball" parent="." instance=ExtResource("14_0rf2y")]
 position = Vector2(580, 172)
+
+[node name="SecretTunnel" type="Area2D" parent="."]
+position = Vector2(744, 158)
+script = ExtResource("15_o575v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecretTunnel"]
+shape = SubResource("RectangleShape2D_0316g")
+metadata/_edit_lock_ = true

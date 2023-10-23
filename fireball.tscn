@@ -51,6 +51,7 @@ radius = 4.12311
 radius = 4.12311
 
 [node name="Fireball" type="RigidBody2D"]
+collision_layer = 16
 mass = 0.3
 lock_rotation = true
 script = ExtResource("1_hre6n")

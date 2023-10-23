@@ -1,14 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dafpx601bd4uj"]
+[gd_scene load_steps=6 format=3 uid="uid://dafpx601bd4uj"]
 
 [ext_resource type="Script" path="res://star.gd" id="1_6etl1"]
 [ext_resource type="Script" path="res://Pickup.gd" id="2_8olaq"]
 [ext_resource type="Texture2D" uid="uid://07oggifo7yeu" path="res://assets/tilemap-Sheet.png" id="2_cjdu1"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sn33l"]
+radius = 7.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ea3km"]
 size = Vector2(12, 12)
 
-[node name="Star" type="Node2D"]
+[node name="Star" type="RigidBody2D"]
+collision_layer = 8
+mass = 0.5
+lock_rotation = true
 script = ExtResource("1_6etl1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sn33l")
 
 [node name="Tilemap-sheet" type="Sprite2D" parent="."]
 texture_filter = 1

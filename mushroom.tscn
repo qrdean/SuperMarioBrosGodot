@@ -1,14 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjan7buwecohf"]
+[gd_scene load_steps=6 format=3 uid="uid://bjan7buwecohf"]
 
 [ext_resource type="Script" path="res://Pickup.gd" id="1_8ifxv"]
 [ext_resource type="Script" path="res://mushroom.gd" id="1_veoq2"]
 [ext_resource type="Texture2D" uid="uid://07oggifo7yeu" path="res://assets/tilemap-Sheet.png" id="3_piw3q"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ca14"]
+radius = 6.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssqjj"]
 size = Vector2(12, 12)
 
-[node name="Mushroom" type="Node2D"]
+[node name="Mushroom" type="RigidBody2D"]
+collision_layer = 8
+mass = 0.5
+lock_rotation = true
+linear_damp_mode = 1
 script = ExtResource("1_veoq2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0ca14")
 
 [node name="Pickup" type="Node2D" parent="."]
 unique_name_in_owner = true

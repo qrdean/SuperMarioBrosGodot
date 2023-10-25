@@ -240,7 +240,8 @@ func _player_death():
 
 ## Item pick up script. This could be handled by resource files or something
 ## but a string will work for this small project
-func item_pickup(type: String):
+func item_pickup(type: String, score: int):
+	print_debug(score)
 	if type == "mushroom":
 		handle_mushroom()
 	elif type == "fireflower":

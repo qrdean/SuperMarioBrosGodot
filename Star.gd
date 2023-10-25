@@ -10,7 +10,8 @@ var velocity = Vector2(0.0, 0.0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pickup.type = "star"
-	pickup.pickup_area.body_entered.connect(_on_pickup.bind(pickup.type))
+	pickup.score = 1000
+	pickup.pickup_area.body_entered.connect(_on_pickup)
 
 func _physics_process(delta):
 	velocity.x = SPEED * delta * direction.x
@@ -20,7 +21,7 @@ func _physics_process(delta):
 		direction = direction.bounce(collision_info.get_normal())
 
 ## callback for when the area2D is entered by a body
-func _on_pickup(body: Node2D, type: String):
+func _on_pickup(body: Node2D):
 	if body is Player:
-		body.item_pickup(type)
+		body.item_pickup(pickup.type, pickup.score)
 		self.queue_free()

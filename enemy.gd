@@ -19,7 +19,6 @@ var wait = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	print_debug(player)
 	animation_sprite.animation_finished.connect(_run_animation_finished)
 	hurtbox.area_entered.connect(_on_hurtbox_entered)
 	# TODO: would want to make an initialization layer to handle different enemies

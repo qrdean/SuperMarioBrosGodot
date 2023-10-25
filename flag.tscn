@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://be55f2hiv1xlc"]
+
+[ext_resource type="Texture2D" uid="uid://bhhgx72u5k4pe" path="res://assets/background-tiles-Sheet.png" id="1_xk7bq"]
+
+[node name="Flag" type="Node2D"]
+position = Vector2(-8, 0)
+
+[node name="Background-tiles-sheet" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_xk7bq")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)

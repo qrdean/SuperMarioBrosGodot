@@ -1,11 +1,17 @@
-[gd_scene load_steps=23 format=3 uid="uid://cg6xe61fchfki"]
+[gd_scene load_steps=39 format=3 uid="uid://cg6xe61fchfki"]
 
 [ext_resource type="PackedScene" uid="uid://bg0xcynlmefh1" path="res://player.tscn" id="1_35kbv"]
 [ext_resource type="Script" path="res://world.gd" id="1_t61k5"]
 [ext_resource type="Texture2D" uid="uid://d2fohxfx301n" path="res://assets/background.png" id="2_g6ubk"]
 [ext_resource type="Texture2D" uid="uid://dcatsrhupeu1t" path="res://assets/ground.png" id="3_3u3m2"]
+[ext_resource type="Texture2D" uid="uid://bhhgx72u5k4pe" path="res://assets/background-tiles-Sheet.png" id="3_f8jya"]
+[ext_resource type="Texture2D" uid="uid://trwcxdsfyap2" path="res://assets/background-blk.png" id="3_lj0t5"]
+[ext_resource type="Texture2D" uid="uid://br30lh6d754c2" path="res://assets/flagpole.png" id="3_psk4l"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="4_ok5km"]
+[ext_resource type="Texture2D" uid="uid://de6wcubnipfhj" path="res://assets/mario-full.png" id="5_fy5gy"]
+[ext_resource type="Texture2D" uid="uid://cjjoqba4n3i3t" path="res://assets/s_player-Sheet.png" id="5_ljqeu"]
 [ext_resource type="Script" path="res://DeathZone.gd" id="6_qgrav"]
+[ext_resource type="Script" path="res://EndOfLevel.gd" id="6_s6neq"]
 [ext_resource type="PackedScene" uid="uid://o5qc0ugcpnuq" path="res://brick.tscn" id="7_iejev"]
 [ext_resource type="Texture2D" uid="uid://07oggifo7yeu" path="res://assets/tilemap-Sheet.png" id="8_gjrfr"]
 [ext_resource type="Script" path="res://TileMap.gd" id="9_byici"]
@@ -17,6 +23,143 @@
 [ext_resource type="Script" path="res://SecretTunnelExit.gd" id="15_b7jrn"]
 [ext_resource type="Script" path="res://SecretTunnel.gd" id="15_o575v"]
 [ext_resource type="PackedScene" uid="uid://yxb5xywlu3nc" path="res://coin.tscn" id="17_embsn"]
+[ext_resource type="PackedScene" uid="uid://be55f2hiv1xlc" path="res://flag.tscn" id="20_6hl6w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk3y8"]
+size = Vector2(15, 212)
+
+[sub_resource type="Animation" id="Animation_245w2"]
+resource_name = "level_finished"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2385, 96), Vector2(2385, 192)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../player_sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.3, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2400, 96), Vector2(2400, 192), Vector2(2410, 200), Vector2(2511, 200)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../player_sprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../player_sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8toxw"]
+_data = {
+"level_finished": SubResource("Animation_245w2")
+}
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sqnwg"]
+texture = ExtResource("3_f8jya")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+4:4/0 = 0
+4:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+0:2/0 = 0
+4:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lgd8p"]
+sources/0 = SubResource("TileSetAtlasSource_sqnwg")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miv1k"]
+atlas = ExtResource("5_fy5gy")
+region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7rkv"]
+atlas = ExtResource("5_fy5gy")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbb0d"]
+atlas = ExtResource("5_ljqeu")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ttbup"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miv1k")
+}],
+"loop": true,
+"name": &"f_ride",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7rkv")
+}],
+"loop": true,
+"name": &"ride",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbb0d")
+}],
+"loop": true,
+"name": &"s_ride",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iqr54"]
 size = Vector2(2627, 20)
@@ -97,23 +240,68 @@ script = ExtResource("1_t61k5")
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(128, 122)
 texture = ExtResource("2_g6ubk")
+metadata/_edit_lock_ = true
 
 [node name="Background2" type="Sprite2D" parent="."]
 position = Vector2(384, 122)
 texture = ExtResource("2_g6ubk")
+metadata/_edit_lock_ = true
 
 [node name="Background3" type="Sprite2D" parent="."]
 position = Vector2(640, 122)
 texture = ExtResource("2_g6ubk")
+metadata/_edit_lock_ = true
 
 [node name="Background4" type="Sprite2D" parent="."]
 position = Vector2(1680, 122)
 scale = Vector2(7.125, 1)
 texture = ExtResource("2_g6ubk")
+metadata/_edit_lock_ = true
 
 [node name="Background5" type="Sprite2D" parent="."]
-position = Vector2(872, 408)
-texture = ExtResource("2_g6ubk")
+position = Vector2(876, 408)
+scale = Vector2(1.03125, 1)
+texture = ExtResource("3_lj0t5")
+
+[node name="Flagpole" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2394, 152)
+texture = ExtResource("3_psk4l")
+metadata/_edit_lock_ = true
+
+[node name="Flag" parent="." instance=ExtResource("20_6hl6w")]
+position = Vector2(2385, 192)
+
+[node name="EndOfLevel" type="Area2D" parent="."]
+position = Vector2(2394, 158)
+collision_mask = 2
+script = ExtResource("6_s6neq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndOfLevel"]
+position = Vector2(0.5, -49)
+shape = SubResource("RectangleShape2D_vk3y8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Flag")
+libraries = {
+"": SubResource("AnimationLibrary_8toxw")
+}
+
+[node name="BackgroundMap" type="TileMap" parent="."]
+texture_filter = 1
+position = Vector2(0, 8)
+tile_set = SubResource("TileSet_lgd8p")
+format = 2
+layer_0/tile_data = PackedInt32Array(262149, 196608, 0, 327685, 196608, 1, 262150, 262144, 0, 327686, 262144, 1, 262158, 196608, 0, 327694, 196608, 1, 262159, 262144, 0, 327695, 262144, 1, 262160, 196608, 0, 327696, 196608, 1, 262161, 262144, 0, 327697, 262144, 1, 786433, 327680, 0, 786434, 393216, 0, 65560, 196608, 0, 131096, 196608, 1, 65561, 262144, 0, 131097, 262144, 1, 131103, 196608, 0, 196639, 196608, 1, 131104, 262144, 0, 196640, 262144, 1, 131113, 196608, 0, 196649, 196608, 1, 131114, 262144, 0, 196650, 262144, 1, 196654, 196608, 0, 262190, 196608, 1, 196655, 262144, 0, 262191, 262144, 1, 65593, 196608, 0, 131129, 196608, 1, 65594, 262144, 0, 131130, 262144, 1, 131127, 196608, 0, 196663, 196608, 1, 131128, 262144, 0, 196664, 262144, 1, 131140, 196608, 0, 196676, 196608, 1, 131141, 262144, 0, 196677, 262144, 1, 131142, 196608, 0, 196678, 196608, 1, 131143, 262144, 0, 196679, 262144, 1, 131144, 196608, 0, 196680, 196608, 1, 131145, 262144, 0, 196681, 262144, 1, 131158, 196608, 0, 196694, 196608, 1, 131159, 262144, 0, 196695, 262144, 1, 131172, 196608, 0, 196708, 196608, 1, 131173, 262144, 0, 196709, 262144, 1, 131187, 196608, 0, 196723, 196608, 1, 131188, 262144, 0, 196724, 262144, 1, 131201, 196608, 0, 196737, 196608, 1, 131202, 262144, 0, 196738, 262144, 1, 131212, 196608, 0, 196748, 196608, 1, 131213, 262144, 0, 196749, 262144, 1, 196757, 196608, 0, 262293, 196608, 1, 196758, 262144, 0, 262294, 262144, 1, 65692, 196608, 0, 131228, 196608, 1, 65693, 262144, 0, 131229, 262144, 1, 786555, 327680, 0, 786556, 393216, 0, 786575, 327680, 0, 786576, 393216, 0, 786542, 327680, 0, 786543, 393216, 0, 786524, 327680, 0, 786525, 393216, 0, 786498, 327680, 0, 786499, 393216, 0, 786502, 327680, 0, 786503, 393216, 0, 786489, 327680, 0, 786490, 393216, 0, 786471, 327680, 0, 786472, 393216, 0, 786452, 327680, 0, 786453, 393216, 0, 786445, 327680, 0, 786446, 393216, 0, 589979, 0, 2, 655515, 0, 3, 721051, 0, 4, 786587, 0, 5, 589980, 65536, 2, 655516, 65536, 3, 721052, 65536, 4, 786588, 65536, 5, 589981, 131072, 2, 655517, 131072, 3, 721053, 131072, 4, 786589, 131072, 5, 589982, 196608, 2, 655518, 196608, 3, 721054, 196608, 4, 786590, 196608, 5, 589983, 262144, 2, 655519, 262144, 3, 721055, 262144, 4, 786591, 262144, 5)
+
+[node name="player_sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+position = Vector2(2511, 200)
+sprite_frames = SubResource("SpriteFrames_ttbup")
+animation = &"ride"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
@@ -139,7 +327,7 @@ position = Vector2(128, 122)
 polygon = PackedVector2Array(128, 120, -128, 120, -128, 96, 128, 96)
 
 [node name="Player" parent="." instance=ExtResource("1_35kbv")]
-position = Vector2(100, 191)
+position = Vector2(45, 194)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("node_to_follow")]
 unique_name_in_owner = true
@@ -274,7 +462,7 @@ layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(655456, 262145, 0, 655472, 262145, 0, 917613, 262145, 0, 917616, 262145, 0, 917619, 262145, 0, 655493, 262145, 0, 655492, 262145, 0, 917678, 262145, 0, 917522, 262145, 0, 917528, 262145, 0, 917530, 262145, 0, 720921, 262145, 0, 917583, 262145, 0)
+layer_2/tile_data = PackedInt32Array(655456, 262145, 0, 655472, 262145, 0, 917613, 262145, 0, 917616, 262145, 0, 917619, 262145, 0, 655493, 262145, 0, 655492, 262145, 0, 917678, 262145, 0, 917522, 262145, 0, 917528, 262145, 0, 917530, 262145, 0, 917583, 262145, 0)
 script = ExtResource("9_byici")
 
 [node name="ItemBlock" parent="." instance=ExtResource("10_vgi8j")]
@@ -290,7 +478,7 @@ position = Vector2(318, 174)
 item_pickup = ExtResource("12_kdbgy")
 
 [node name="ItemBlock4" parent="." instance=ExtResource("10_vgi8j")]
-position = Vector2(306, 138)
+position = Vector2(306, 126)
 item_pickup = ExtResource("11_knu01")
 
 [node name="ItemBlock5" parent="." instance=ExtResource("10_vgi8j")]
@@ -351,10 +539,10 @@ shape = SubResource("RectangleShape2D_r7o6n")
 metadata/_edit_lock_ = true
 
 [node name="TargetLocation2" type="Marker2D" parent="SecretTunnelExit"]
-position = Vector2(1082, -317)
+position = Vector2(1053, -296)
 
 [node name="TargetCameraLocation2" type="Marker2D" parent="SecretTunnelExit"]
-position = Vector2(1083, -372)
+position = Vector2(1052, -363)
 
 [node name="SecretTunnel" type="Area2D" parent="."]
 position = Vector2(744, 158)
@@ -476,3 +664,27 @@ position = Vector2(906, 404)
 
 [node name="coin30" parent="." instance=ExtResource("17_embsn")]
 position = Vector2(918, 404)
+
+[node name="Enemy7" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(1249, 208)
+enemy_type = "goomba"
+
+[node name="Enemy8" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(1298, 208)
+enemy_type = "goomba"
+
+[node name="Enemy9" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(1397, 210)
+enemy_type = "goomba"
+
+[node name="Enemy10" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(1459, 209)
+enemy_type = "goomba"
+
+[node name="Enemy11" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(2132, 210)
+enemy_type = "goomba"
+
+[node name="Enemy12" parent="." instance=ExtResource("13_g03cp")]
+position = Vector2(2097, 210)
+enemy_type = "goomba"

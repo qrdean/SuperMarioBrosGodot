@@ -15,7 +15,15 @@ func item_block_collision():
 		has_item = false
 		if (item_pickup):
 			var new_item = item_pickup.instantiate()
-			add_sibling.call_deferred(new_item)
-			new_item.visible = true
-			new_item.position = position - Vector2(0, 12)
+			if new_item is Coin:
+				print_debug("we arespawning a new coin")
+				print_debug("call score")
+				add_sibling.call_deferred(new_item)
+				new_item.visible = true
+				new_item.position = position - Vector2(0, 12)
+				new_item.from_block = true
+			else:
+				add_sibling.call_deferred(new_item)
+				new_item.visible = true
+				new_item.position = position - Vector2(0, 12)
 

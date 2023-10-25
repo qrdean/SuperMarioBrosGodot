@@ -51,6 +51,8 @@ var dictionary_of_super_animations: Dictionary = {"idle": "super_idle", "run": "
 var dictionary_of_fireflower_animations: Dictionary = {"idle": "fire_idle", "run": "fire_run", "jump": "fire_jump"}
 # var dictionary_of_star_animations: Dictionary = {"idle": "normal_idle", "run": "normal_run", "jump": "normal_jump"}
 
+signal enter_tunnel_attempt
+
 func _ready():
 	starting_pos = global_position
 	current_animation_dictionary = get_animation_dictionary()
@@ -94,6 +96,9 @@ func handle_physics_death(delta):
 func handle_input():
 	if Input.is_action_just_pressed("fireball") && state == MarioState.FIREFLOWER:
 		_launch_fireball()
+	
+	if Input.is_action_pressed("down"):
+		enter_tunnel_attempt.emit()
 
 	var direction = Input.get_axis("left", "right")
 	if direction:
@@ -242,6 +247,8 @@ func item_pickup(type: String):
 		handle_fire_flower()
 	elif type == "star":
 		handle_star()
+	elif type == "coin":
+		print_debug("type coin. add to score")
 	else:
 		print_debug("type unknown")
 		print_debug(type)

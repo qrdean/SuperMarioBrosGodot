@@ -1,10 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyqhqmuos10h8"]
+[gd_scene load_steps=8 format=3 uid="uid://dyqhqmuos10h8"]
 
 [ext_resource type="Script" path="res://item_block.gd" id="1_8b08n"]
 [ext_resource type="Texture2D" uid="uid://07oggifo7yeu" path="res://assets/tilemap-Sheet.png" id="2_4cycd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkv0f"]
 size = Vector2(12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8avq"]
+atlas = ExtResource("2_4cycd")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr1pl"]
+atlas = ExtResource("2_4cycd")
+region = Rect2(48, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnkac"]
+atlas = ExtResource("2_4cycd")
+region = Rect2(60, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x2djq"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8avq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rr1pl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnkac")
+}],
+"loop": true,
+"name": &"spent",
+"speed": 5.0
+}]
 
 [node name="ItemBlock" type="AnimatableBody2D"]
 script = ExtResource("1_8b08n")
@@ -17,3 +56,10 @@ region_rect = Rect2(48, 0, 12, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vkv0f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_x2djq")
+animation = &"idle"
+frame = 1
+frame_progress = 0.574352

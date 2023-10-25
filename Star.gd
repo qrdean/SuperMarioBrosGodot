@@ -2,7 +2,7 @@ extends RigidBody2D
 
 @onready var pickup: Pickup = %Pickup
 
-var SPEED = 150
+var SPEED = 75
 var UP_SPEED = 250
 var direction = Vector2(1.0, 1.0)
 var velocity = Vector2(0.0, 0.0)

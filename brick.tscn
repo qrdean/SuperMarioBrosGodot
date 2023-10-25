@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://o5qc0ugcpnuq"]
+[gd_scene load_steps=9 format=3 uid="uid://o5qc0ugcpnuq"]
 
 [ext_resource type="Script" path="res://brick.gd" id="1_35ljb"]
+[ext_resource type="PackedScene" uid="uid://bo67dtoo3b7bp" path="res://brick_pieces.tscn" id="2_807af"]
 [ext_resource type="Texture2D" uid="uid://07oggifo7yeu" path="res://assets/tilemap-Sheet.png" id="2_upo0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grlax"]
@@ -9,11 +10,51 @@ size = Vector2(12, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dfog"]
 size = Vector2(14, 13)
 
+[sub_resource type="Animation" id="Animation_iv7x2"]
+resource_name = "bounce"
+length = 0.05
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -1), Vector2(2.08165e-12, 2.08165e-12)]
+}
+
+[sub_resource type="Animation" id="Animation_23g5a"]
+resource_name = "break"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cvebt"]
+_data = {
+"bounce": SubResource("Animation_iv7x2"),
+"break": SubResource("Animation_23g5a")
+}
+
 [node name="Brick" type="AnimatableBody2D"]
 script = ExtResource("1_35ljb")
+brick_pieces_scene = ExtResource("2_807af")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(2.08165e-12, 2.08165e-12)
 texture = ExtResource("2_upo0o")
 region_enabled = true
 region_rect = Rect2(0, 0, 12, 12)
@@ -28,3 +69,8 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BrickArea2D"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_6dfog")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cvebt")
+}

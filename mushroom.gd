@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name Mushroom
 
-@export var SPEED = 100
+@export var SPEED = 50
 
 @onready var pickup: Pickup = %Pickup
 

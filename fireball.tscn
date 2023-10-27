@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfawg1m3e80o8"]
+[gd_scene load_steps=11 format=3 uid="uid://dfawg1m3e80o8"]
 
 [ext_resource type="Texture2D" uid="uid://2atea41m7td5" path="res://assets/fireball-Sheet.png" id="1_5ts8c"]
 [ext_resource type="Script" path="res://fireball.gd" id="1_hre6n"]
+[ext_resource type="AudioStream" uid="uid://dlbct4n6e4xwb" path="res://assets-mario-audio/fireball.mp3" id="3_ewgv7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xesw0"]
 atlas = ExtResource("1_5ts8c")
@@ -79,3 +80,7 @@ shape = SubResource("CircleShape2D_xwlsf")
 wait_time = 7.5
 one_shot = true
 autostart = true
+
+[node name="fireball_sound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_ewgv7")

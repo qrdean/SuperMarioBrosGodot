@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b718j5ccyoo7r"]
+[gd_scene load_steps=10 format=3 uid="uid://b718j5ccyoo7r"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_hqgnj"]
 [ext_resource type="Texture2D" uid="uid://cyxcbiqd3xm0" path="res://assets/goomba-Sheet.png" id="2_blkc8"]
+[ext_resource type="AudioStream" uid="uid://bq0egbisvpdga" path="res://assets-mario-audio/stomp.mp3" id="3_jpxfj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yw26y"]
 atlas = ExtResource("2_blkc8")
@@ -72,3 +73,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 shape = SubResource("RectangleShape2D_k6wsv")
+
+[node name="death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jpxfj")

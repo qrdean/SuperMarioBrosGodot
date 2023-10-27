@@ -36,6 +36,10 @@ var jumping = false
 @onready var small_collision_shape: CollisionShape2D = %small_collision_shape
 @onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
+@onready var jump_sound: AudioStreamPlayer = %jump
+@onready var power_up_sound: AudioStreamPlayer = %powerup
+@onready var coin_pickup_sound: AudioStreamPlayer = $PlayerAudio/coin_sound
+
 @export var fireball_scene: PackedScene
 
 var death = false
@@ -50,6 +54,10 @@ var dictionary_of_normal_animations: Dictionary = {"idle": "normal_idle", "run":
 var dictionary_of_super_animations: Dictionary = {"idle": "super_idle", "run": "super_run", "jump": "super_jump"}
 var dictionary_of_fireflower_animations: Dictionary = {"idle": "fire_idle", "run": "fire_run", "jump": "fire_jump"}
 # var dictionary_of_star_animations: Dictionary = {"idle": "normal_idle", "run": "normal_run", "jump": "normal_jump"}
+
+signal lose_life
+signal star_mode_enable
+signal star_mode_disable
 
 signal enter_tunnel_attempt
 
@@ -129,6 +137,7 @@ func handle_jump(delta):
 		animation_player.play(current_animation_dictionary.get("jump"))
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		jump_sound.play()
 		velocity.y = JUMP_VELOCITY
 
 func handle_enemy_jump_collisions():
@@ -235,6 +244,7 @@ func _player_death():
 	velocity = Vector2.ZERO
 	handle_collision_change()
 	velocity.y = JUMP_VELOCITY
+	lose_life.emit()
 
 #### ITEM HANDLING ###
 
@@ -249,6 +259,7 @@ func item_pickup(type: String, score: int):
 	elif type == "star":
 		handle_star()
 	elif type == "coin":
+		coin_pickup_sound.play()
 		print_debug("type coin. add to score")
 	else:
 		print_debug("type unknown")
@@ -258,6 +269,7 @@ func handle_mushroom():
 	if(state == MarioState.NORMAL):
 		# make super mario
 		state = MarioState.SUPER
+		power_up_sound.play()
 	else:
 		# extra life
 		print_debug("give 1 up")
@@ -265,6 +277,7 @@ func handle_mushroom():
 func handle_fire_flower():
 	if(state != MarioState.FIREFLOWER):
 		state = MarioState.FIREFLOWER
+		power_up_sound.play()
 	else:
 		# store the fireflower up top
 		print_debug("store flower")
@@ -274,6 +287,7 @@ func handle_star():
 		prev_state = state
 		state = MarioState.STARPOWER
 		star_timer.start()
+		star_mode_enable.emit()
 	else:
 		# store the star??
 		print_debug("store star")
@@ -283,6 +297,7 @@ func handle_star():
 ## we hook up the signal it holds on to the reference instead of letting us pass on start
 func _on_star_timeout():
 	self.state = prev_state
+	star_mode_disable.emit()
 
 func _launch_fireball() -> void:
 	var fireball: Fireball = fireball_scene.instantiate()

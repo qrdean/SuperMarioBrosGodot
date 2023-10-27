@@ -7,6 +7,7 @@ class_name Fireball
 @onready var fireball_hitbox: Area2D = %hitbox
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
+@onready var fireball_sound: AudioStreamPlayer = %fireball_sound
 
 var direction: Vector2 = Vector2(1.0, 1.0) 
 var initial_x_direction: float
@@ -17,6 +18,7 @@ func _ready():
 		direction.x = initial_x_direction
 	fireball_hitbox.body_entered.connect(_fireball_area_body_entered)
 	animation.play("fireball")
+	fireball_sound.play()
 
 func _physics_process(_delta):
 	var velocity = SPEED * _delta * direction

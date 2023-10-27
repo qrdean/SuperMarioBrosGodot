@@ -5,6 +5,7 @@ class_name SecretTunnel
 @onready var target_location = %TargetLocation
 @onready var target_camera_location = %TargetCameraLocation
 @onready var camera_2d = %Camera2D
+@onready var warp_pipe_sound = $WarpPipeSound
 
 var entering = false
 # Called when the node enters the scene tree for the first time.
@@ -29,6 +30,7 @@ func _on_body_exit(body: Node2D):
 
 func _enter_tunnel(player: Player):
 	if !entering:
+		warp_pipe_sound.play()
 		entering = true
 		player.global_position = target_location.global_position
 		camera_2d.position.y = target_camera_location.global_position.y

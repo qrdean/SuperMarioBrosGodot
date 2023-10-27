@@ -1,15 +1,21 @@
-[gd_scene load_steps=39 format=3 uid="uid://cg6xe61fchfki"]
+[gd_scene load_steps=46 format=3 uid="uid://cg6xe61fchfki"]
 
 [ext_resource type="PackedScene" uid="uid://bg0xcynlmefh1" path="res://player.tscn" id="1_35kbv"]
 [ext_resource type="Script" path="res://world.gd" id="1_t61k5"]
+[ext_resource type="PackedScene" uid="uid://dfriess3hasvg" path="res://UI.tscn" id="2_6jhbh"]
+[ext_resource type="AudioStream" uid="uid://croy3yifh5xay" path="res://assets-mario-audio/overworld.mp3" id="2_djp0s"]
 [ext_resource type="Texture2D" uid="uid://d2fohxfx301n" path="res://assets/background.png" id="2_g6ubk"]
 [ext_resource type="Texture2D" uid="uid://dcatsrhupeu1t" path="res://assets/ground.png" id="3_3u3m2"]
+[ext_resource type="AudioStream" uid="uid://dxyep5p05gd2m" path="res://assets-mario-audio/starman.mp3" id="3_e57nx"]
 [ext_resource type="Texture2D" uid="uid://bhhgx72u5k4pe" path="res://assets/background-tiles-Sheet.png" id="3_f8jya"]
 [ext_resource type="Texture2D" uid="uid://trwcxdsfyap2" path="res://assets/background-blk.png" id="3_lj0t5"]
 [ext_resource type="Texture2D" uid="uid://br30lh6d754c2" path="res://assets/flagpole.png" id="3_psk4l"]
+[ext_resource type="AudioStream" uid="uid://c4ah162c67pgu" path="res://assets-mario-audio/life-lost.mp3" id="4_irnqb"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="4_ok5km"]
 [ext_resource type="Texture2D" uid="uid://de6wcubnipfhj" path="res://assets/mario-full.png" id="5_fy5gy"]
+[ext_resource type="AudioStream" uid="uid://c0dqgb2i1kf62" path="res://assets-mario-audio/level-clear.mp3" id="5_hnrsi"]
 [ext_resource type="Texture2D" uid="uid://cjjoqba4n3i3t" path="res://assets/s_player-Sheet.png" id="5_ljqeu"]
+[ext_resource type="AudioStream" uid="uid://c2wuof3611jgd" path="res://assets-mario-audio/flagpole.mp3" id="6_0mfdi"]
 [ext_resource type="Script" path="res://DeathZone.gd" id="6_qgrav"]
 [ext_resource type="Script" path="res://EndOfLevel.gd" id="6_s6neq"]
 [ext_resource type="PackedScene" uid="uid://o5qc0ugcpnuq" path="res://brick.tscn" id="7_iejev"]
@@ -24,6 +30,7 @@
 [ext_resource type="Script" path="res://SecretTunnel.gd" id="15_o575v"]
 [ext_resource type="PackedScene" uid="uid://yxb5xywlu3nc" path="res://coin.tscn" id="17_embsn"]
 [ext_resource type="PackedScene" uid="uid://be55f2hiv1xlc" path="res://flag.tscn" id="20_6hl6w"]
+[ext_resource type="AudioStream" uid="uid://cdlgsml77o8vd" path="res://assets-mario-audio/pipe.mp3" id="31_fb22u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vk3y8"]
 size = Vector2(15, 212)
@@ -78,6 +85,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../FlagpoleSound:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../LevelClear:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8toxw"]
@@ -237,6 +268,24 @@ sources/1 = SubResource("TileSetAtlasSource_6c0fr")
 [node name="World" type="Node2D"]
 script = ExtResource("1_t61k5")
 
+[node name="Overworld" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_djp0s")
+autoplay = true
+
+[node name="Starmode" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_e57nx")
+
+[node name="LoseLife" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_irnqb")
+
+[node name="LevelClear" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hnrsi")
+
+[node name="FlagpoleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_0mfdi")
+
+[node name="Control" parent="." instance=ExtResource("2_6jhbh")]
+
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(128, 122)
 texture = ExtResource("2_g6ubk")
@@ -270,7 +319,7 @@ texture = ExtResource("3_psk4l")
 metadata/_edit_lock_ = true
 
 [node name="Flag" parent="." instance=ExtResource("20_6hl6w")]
-position = Vector2(2385, 192)
+position = Vector2(2385, 96)
 
 [node name="EndOfLevel" type="Area2D" parent="."]
 position = Vector2(2394, 158)
@@ -299,9 +348,10 @@ layer_0/tile_data = PackedInt32Array(262149, 196608, 0, 327685, 196608, 1, 26215
 unique_name_in_owner = true
 visible = false
 texture_filter = 1
-position = Vector2(2511, 200)
+position = Vector2(2400, 96)
 sprite_frames = SubResource("SpriteFrames_ttbup")
 animation = &"ride"
+flip_h = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
@@ -332,6 +382,8 @@ position = Vector2(45, 194)
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("node_to_follow")]
 unique_name_in_owner = true
 position = Vector2(127, 121)
+limit_left = 0
+limit_right = 2592
 script = ExtResource("4_ok5km")
 node_to_follow = NodePath("../Player")
 
@@ -565,6 +617,9 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 position = Vector2(36, 178)
 metadata/_edit_lock_ = true
+
+[node name="WarpPipeSound" type="AudioStreamPlayer" parent="SecretTunnel"]
+stream = ExtResource("31_fb22u")
 
 [node name="coin" parent="." instance=ExtResource("17_embsn")]
 position = Vector2(166, 172)

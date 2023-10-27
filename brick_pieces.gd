@@ -5,6 +5,8 @@ extends Node2D
 @onready var piece3 = $Piece3
 @onready var piece4 = $Piece4
 
+@onready var break_block_sound: AudioStreamPlayer = $break_block
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var positionA = Vector2(-7.0, -7.0)
 var positionB = Vector2(7.0, -7.0)
@@ -13,6 +15,9 @@ var positionD = Vector2(7.0, 7.0)
 
 var t = 0.0
 var duration = 1.75
+
+func _ready():
+	break_block_sound.play()
 
 func _process(delta):
 	t += duration * delta

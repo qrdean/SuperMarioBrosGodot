@@ -4,6 +4,8 @@ var has_item = true
 
 @export var item_pickup: PackedScene
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var powerup_appear_sound: AudioStreamPlayer = $powerup_appear
+@onready var coin_sound: AudioStreamPlayer = $coin_sound
 
 func _ready():
 	animated_sprite.play("idle")
@@ -16,14 +18,14 @@ func item_block_collision():
 		if (item_pickup):
 			var new_item = item_pickup.instantiate()
 			if new_item is Coin:
-				print_debug("we arespawning a new coin")
-				print_debug("call score")
 				add_sibling.call_deferred(new_item)
 				new_item.visible = true
 				new_item.position = position - Vector2(0, 12)
 				new_item.from_block = true
+				coin_sound.play()
 			else:
 				add_sibling.call_deferred(new_item)
 				new_item.visible = true
 				new_item.position = position - Vector2(0, 12)
+				powerup_appear_sound.play()
 

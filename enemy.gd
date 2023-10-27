@@ -11,6 +11,8 @@ var wait = true
 
 @onready var hurtbox: Area2D = %hurtbox
 @onready var animation_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var death_sound: AudioStreamPlayer = $death
+
 
 # Super hacky. Don't love this method of getting a static node for distance 
 # checking maybe a hieger level function sending signal down?
@@ -67,6 +69,7 @@ func _on_hurtbox_entered(area: Node2D):
 ## One function that gets passed in. Instead of this
 func run_damage(stomp: bool):
 	# hurtbox.monitoring = false
+	death_sound.play()
 	killed = true
 	hurtbox.call_deferred("set_monitoring", false)
 	if stomp:

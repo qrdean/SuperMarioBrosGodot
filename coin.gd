@@ -4,6 +4,7 @@ class_name Coin
 @onready var pickup: Pickup = %Pickup
 @onready var animation_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+
 var from_block = false
 
 # Called when the node enters the scene tree for the first time.

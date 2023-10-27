@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bg0xcynlmefh1"]
+[gd_scene load_steps=37 format=3 uid="uid://bg0xcynlmefh1"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_demhi"]
 [ext_resource type="PackedScene" uid="uid://dfawg1m3e80o8" path="res://fireball.tscn" id="2_gfuxg"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://bue6mk1nplo1o" path="res://assets/s_player-run.png" id="3_uhhr6"]
 [ext_resource type="Texture2D" uid="uid://cjjoqba4n3i3t" path="res://assets/s_player-Sheet.png" id="3_xckid"]
 [ext_resource type="Texture2D" uid="uid://dqgqq8ad3fo35" path="res://assets/player-Sheet.png" id="6_i7jrp"]
+[ext_resource type="AudioStream" uid="uid://c16rxwfra5j15" path="res://assets-mario-audio/jump-small.mp3" id="9_bo8ry"]
+[ext_resource type="AudioStream" uid="uid://bm21p3bdgq43k" path="res://assets-mario-audio/powerup.mp3" id="10_7i661"]
+[ext_resource type="AudioStream" uid="uid://c23h1l6hq6lra" path="res://assets-mario-audio/coin.mp3" id="11_px62i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uqt4"]
 atlas = ExtResource("3_xckid")
@@ -292,3 +295,16 @@ shape = SubResource("RectangleShape2D_6u22r")
 metadata/_edit_lock_ = true
 
 [node name="invuln_timer" type="Timer" parent="."]
+
+[node name="PlayerAudio" type="Node2D" parent="."]
+
+[node name="jump" type="AudioStreamPlayer" parent="PlayerAudio"]
+unique_name_in_owner = true
+stream = ExtResource("9_bo8ry")
+
+[node name="powerup" type="AudioStreamPlayer" parent="PlayerAudio"]
+unique_name_in_owner = true
+stream = ExtResource("10_7i661")
+
+[node name="coin_sound" type="AudioStreamPlayer" parent="PlayerAudio"]
+stream = ExtResource("11_px62i")

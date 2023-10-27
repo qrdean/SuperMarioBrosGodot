@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyqhqmuos10h8"]
+[gd_scene load_steps=10 format=3 uid="uid://dyqhqmuos10h8"]
 
 [ext_resource type="Script" path="res://item_block.gd" id="1_8b08n"]
 [ext_resource type="Texture2D" uid="uid://07oggifo7yeu" path="res://assets/tilemap-Sheet.png" id="2_4cycd"]
+[ext_resource type="AudioStream" uid="uid://dm44cve3wbrst" path="res://assets-mario-audio/powerup-appears.mp3" id="3_6c5sj"]
+[ext_resource type="AudioStream" uid="uid://c23h1l6hq6lra" path="res://assets-mario-audio/coin.mp3" id="4_bphgx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkv0f"]
 size = Vector2(12, 12)
@@ -63,3 +65,9 @@ sprite_frames = SubResource("SpriteFrames_x2djq")
 animation = &"idle"
 frame = 1
 frame_progress = 0.574352
+
+[node name="powerup_appear" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6c5sj")
+
+[node name="coin_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_bphgx")

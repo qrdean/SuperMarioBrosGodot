@@ -14,6 +14,7 @@ func _ready():
 	player.star_mode_enable.connect(_star_mode_enable)
 	player.star_mode_disable.connect(_star_mode_disable)
 	player.lose_life.connect(_lose_life)
+	lose_life_music.finished.connect(_reset_after_music)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -21,6 +22,7 @@ func _process(_delta):
 
 func _lose_life():
 	overworld_music.stop()
+	lose_life_music.play()
 	lose_life_music.play()
 
 func _star_mode_enable():
@@ -35,3 +37,6 @@ func _star_mode_disable():
 	starmode_music.finished.disconnect(_loop_starmode)
 	starmode_music.stop()
 	overworld_music.play()
+
+func _reset_after_music():
+	get_tree().reload_current_scene()

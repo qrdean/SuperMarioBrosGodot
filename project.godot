@@ -23,6 +23,10 @@ window/size/window_width_override=1024
 window/size/window_height_override=960
 window/stretch/mode="viewport"
 
+[editor]
+
+movie_writer/movie_file="/Users/q/Movies/mario_game/demo.avi"
+
 [input]
 
 left={
